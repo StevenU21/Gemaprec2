@@ -76,5 +76,4 @@ class Maintenance extends Model
     {
         return $this->hasMany(\App\Models\Report::class, 'id', 'maintenance_id');
     }
-
 }

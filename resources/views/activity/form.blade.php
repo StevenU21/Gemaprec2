@@ -14,7 +14,7 @@
                 value="{{ old('start_date', $activity?->start_date) }}" id="start_date" placeholder="Start Date">
             {!! $errors->first('start_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        
+
         <div class="form-group mb-2 mb20">
             <label for="end_date" class="form-label">{{ __('End Date') }}</label>
             <input type="date" name="end_date" class="form-control @error('end_date') is-invalid @enderror"
@@ -48,7 +48,7 @@
                 @foreach ($maintenances as $maintenance)
                     <option value="{{ $maintenance->id }}"
                         {{ old('maintenance_id', $activity?->maintenance_id) == $maintenance->id ? 'selected' : '' }}>
-                        {{ $maintenance->id }}
+                        {{ $maintenance->code . ' - ' . $maintenance->computer->name . ' - ' . $maintenance->computer->client->user->name }}
                     </option>
                 @endforeach
             </select>

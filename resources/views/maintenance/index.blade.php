@@ -50,13 +50,17 @@
                                         <th></th>
                                     </tr>
                                 </thead>
+
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
                                 <tbody>
                                     @foreach ($maintenances as $maintenance)
                                         <tr>
                                             <td>{{ $maintenance->id }}</td>
                                             <td>{{ $maintenance->code }}</td>
-                                            <td>{{ $maintenance->description }}</td>
-                                            <td>{{ $maintenance->start_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($maintenance->start_date)->format('d-m-Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($maintenance->end_date)->format('d-m-Y') }}</td>
                                             <td>{{ $maintenance->end_date }}</td>
                                             <td>{{ $maintenance->observations }}</td>
                                             <td>{{ $maintenance->status }}</td>

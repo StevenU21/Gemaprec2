@@ -102,4 +102,10 @@ class Computer extends Model
     {
         return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
     }
+
+    //formatear fecha
+    public function getAdquisitionDateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($value));
+    }
 }

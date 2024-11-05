@@ -39,7 +39,7 @@ class Activity extends Model
     {
         return $this->belongsTo(\App\Models\Maintenance::class, 'maintenance_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -74,5 +74,4 @@ class Activity extends Model
         return LogOptions::defaults()
             ->logOnly(['description', 'date', 'maintenance_id', 'activity_type_id']);
     }
-
 }

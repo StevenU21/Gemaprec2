@@ -48,14 +48,18 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
+
+                                @php
+                                    use Carbon\Carbon;
+                                @endphp
                                 <tbody>
                                     @foreach ($activities as $activity)
                                         <tr>
 
                                             <td>{{ $activity->id }}</td>
                                             <td>{{ $activity->description }}</td>
-                                            <td>{{ $activity->start_date }}</td>
-                                            <td>{{ $activity->end_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($activity->start_date)->format('d-m-Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($activity->end_date)->format('d-m-Y') }}</td>
                                             <td>{{ $activity->activityType->name }}</td>
                                             <td>{{ $activity->maintenance->code }}</td>
 
