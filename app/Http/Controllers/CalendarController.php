@@ -10,12 +10,25 @@ class CalendarController extends Controller
     {
         return view('calendars.index');
     }
-
     public function events(Request $request)
     {
         $this->authorize('viewAny', Maintenance::class);
 
         $user = $request->user();
+        $query = $this->getMaintenanceQuery($user);
+
+        if (!$query) {
+            return response()->json([]);
+        }
+
+        $maintenances = $query->get();
+        $events = $this->generateEvents($maintenances);
+
+        return response()->json($events);
+    }
+
+    private function getMaintenanceQuery($user)
+    {
         $query = Maintenance::query();
 
         if ($user->hasRole('admin')) {
@@ -31,41 +44,53 @@ class CalendarController extends Controller
                     $query->where('client_id', $user->client->id);
                 });
         } else {
-            return response()->json([]);
+            return null;
         }
 
-        $maintenances = $query->get();
+        return $query;
+    }
+
+    private function generateEvents($maintenances)
+    {
         $events = [];
 
         foreach ($maintenances as $maintenance) {
-            // Agregar el evento de mantenimiento
-            $events[] = [
-                'id' => "maintenance_" . $maintenance->id,
-                'groupId' => "group_" . $maintenance->id,
-                'title' => $maintenance->code . ' Mantenimiento: ' . $maintenance->computer->client->user->name,
-                'start' => $maintenance->start_date,
-                'end' => $maintenance->end_date,
-                'color' => 'blue',
-                'type' => 'maintenance',
-            ];
+            $events[] = $this->createMaintenanceEvent($maintenance);
 
-            // Agregar los eventos de actividades relacionadas
             foreach ($maintenance->activities as $activity) {
-                $events[] = [
-                    'id' => "activity_" . $activity->id,
-                    'groupId' => "group_" . $maintenance->id,
-                    'title' => $activity->maintenance->code . ' Actividad: ' . $activity->description,
-                    'start' => $activity->start_date,
-                    'end' => $activity->end_date,
-                    'maintenance' => $maintenance->description,
-                    'url' => route('activities.show', $activity->id),
-                    'color' => 'orange',
-                    'type' => 'activity',
-                ];
+                $events[] = $this->createActivityEvent($activity, $maintenance);
             }
         }
 
-        return response()->json($events);
+        return $events;
+    }
+
+    private function createMaintenanceEvent($maintenance)
+    {
+        return [
+            'id' => "maintenance_" . $maintenance->id,
+            'groupId' => "group_" . $maintenance->id,
+            'title' => $maintenance->code . ' Mantenimiento: ' . $maintenance->computer->client->user->name,
+            'start' => $maintenance->start_date,
+            'end' => $maintenance->end_date,
+            'color' => 'blue',
+            'type' => 'maintenance',
+        ];
+    }
+
+    private function createActivityEvent($activity, $maintenance)
+    {
+        return [
+            'id' => "activity_" . $activity->id,
+            'groupId' => "group_" . $maintenance->id,
+            'title' => $activity->maintenance->code . ' Actividad: ' . $activity->description,
+            'start' => $activity->start_date,
+            'end' => $activity->end_date,
+            'maintenance' => $maintenance->description,
+            'url' => route('activities.show', $activity->id),
+            'color' => 'orange',
+            'type' => 'activity',
+        ];
     }
 
 }
