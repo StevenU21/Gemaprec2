@@ -42,8 +42,7 @@ class ReportController extends Controller
     {
         $report = Report::with([
             'client.user',
-            'maintenance.computer',
-            'maintenance.activity'
+            'maintenance.computer'
         ])->findOrFail($id);
 
         $timestamp = now()->format('Y_m_d_His');
