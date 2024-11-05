@@ -31,13 +31,13 @@ return new class extends Migration {
             $table->integer('pc_type_id')->unsigned();
             $table->foreign('pc_type_id')->references('id')->on('pc_types');
 
-            $table->integer('client_id')->nullable();
+            $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients');
 
-            $table->integer('created_by')->nullable();
+            $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');
 
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
