@@ -49,10 +49,12 @@ class ActivityService
                             $query->with('client.user');
                         }
                     ]);
-                }
+                },
+                'activityType',
             ],
             Maintenance::class => [
-                'computer.client.user'
+                'computer.client.user',
+                'maintenanceType'
             ],
             Computer::class => [
                 'brand',
@@ -62,7 +64,8 @@ class ActivityService
                 'client.user'
             ],
             Report::class => [
-                'maintenance.computer.client.user'
+                'maintenance.computer.client.user',
+                'client.user'
             ]
         ];
 
