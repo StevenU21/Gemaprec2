@@ -60,18 +60,22 @@ class ComputerController extends Controller
         $pcModels = PcModel::all();
         $pcTypes = PcType::all();
         $ubications = Ubication::all();
+        $clients = $this->getClients($request);
 
+        return view('computer.create', compact('computer', 'brands', 'pcModels', 'pcTypes', 'ubications', 'clients'));
+    }
+
+    private function getClients(Request $request)
+    {
         $user = $request->user();
 
         if ($user->hasRole('admin')) {
-            $clients = Client::all();
+            return Client::all();
         } elseif ($user->hasRole('employee')) {
-            $clients = Client::where('created_by', $user->id)->get();
+            return Client::where('created_by', $user->id)->get();
         } else {
-            $clients = collect(); // Empty collection for other roles
+            return collect(); // Empty collection for other roles
         }
-
-        return view('computer.create', compact('computer', 'brands', 'pcModels', 'pcTypes', 'ubications', 'clients'));
     }
 
     /**
@@ -103,7 +107,7 @@ class ComputerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id): View
+    public function edit($id, Request $request): View
     {
         $computer = Computer::find($id);
         $this->authorize('update', $computer);
@@ -111,7 +115,7 @@ class ComputerController extends Controller
         $pcModels = PcModel::all();
         $pcTypes = PcType::all();
         $ubications = Ubication::all();
-        $clients = Client::all();
+        $clients = $this->getClients($request);
 
         return view('computer.edit', compact('computer', 'brands', 'pcModels', 'pcTypes', 'ubications', 'clients'));
     }
