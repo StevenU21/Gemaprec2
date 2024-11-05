@@ -20,19 +20,19 @@ return new class extends Migration {
             $table->string('status');
 
             $table->integer('brand_id')->unsigned();
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('pc_model_id')->unsigned();
-            $table->foreign('pc_model_id')->references('id')->on('pc_models');
+            $table->foreign('pc_model_id')->references('id')->on('pc_models')->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('ubications_id')->unsigned();
-            $table->foreign('ubications_id')->references('id')->on('ubications');
+            $table->foreign('ubications_id')->references('id')->on('ubications')->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('pc_type_id')->unsigned();
-            $table->foreign('pc_type_id')->references('id')->on('pc_types');
+            $table->foreign('pc_type_id')->references('id')->on('pc_types')->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('client_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
