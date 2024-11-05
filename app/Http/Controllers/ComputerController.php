@@ -52,7 +52,7 @@ class ComputerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $this->authorize('create', Computer::class);
         $computer = new Computer();
@@ -60,7 +60,16 @@ class ComputerController extends Controller
         $pcModels = PcModel::all();
         $pcTypes = PcType::all();
         $ubications = Ubication::all();
-        $clients = Client::all();
+
+        $user = $request->user();
+
+        if ($user->hasRole('admin')) {
+            $clients = Client::all();
+        } elseif ($user->hasRole('employee')) {
+            $clients = Client::where('created_by', $user->id)->get();
+        } else {
+            $clients = collect(); // Empty collection for other roles
+        }
 
         return view('computer.create', compact('computer', 'brands', 'pcModels', 'pcTypes', 'ubications', 'clients'));
     }
