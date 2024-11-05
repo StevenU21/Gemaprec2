@@ -60,7 +60,7 @@ class Computer extends Model
         'pc_model_id',
         'ubications_id',
         'pc_type_id',
-        'client_id',
+        'client_id'
     ];
 
     /**
