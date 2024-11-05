@@ -86,16 +86,4 @@ class ReportController extends Controller
 
         return view('report.show', compact('report'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(ReportRequest $request, Report $report): RedirectResponse
-    {
-        $this->authorize('update', $report);
-        $report->update($request->validated());
-
-        return Redirect::route('reports.index')
-            ->with('success', 'Report updated successfully');
-    }
 }
