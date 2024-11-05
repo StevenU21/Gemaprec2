@@ -46,18 +46,33 @@ class MaintenanceController extends Controller
 
         return view('maintenance.index', compact('maintenances'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $this->authorize('create', Maintenance::class);
         $maintenance = new Maintenance();
         $maintenanceTypes = MaintenanceType::all();
-        $computers = Computer::all();
+        $computers = $this->getComputers($request);
 
         return view('maintenance.create', compact('maintenance', 'maintenanceTypes', 'computers'));
+    }
+
+    private function getComputers(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasRole('admin')) {
+            return Computer::all();
+        } elseif ($user->hasRole('employee')) {
+            return Computer::whereHas('client', function ($query) use ($user) {
+                $query->where('created_by', $user->id);
+            })->get();
+        } else {
+            return collect(); // Empty collection for other roles
+        }
     }
 
     /**
@@ -121,11 +136,11 @@ class MaintenanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id): View
+    public function edit($id, Request $request): View
     {
         $maintenance = Maintenance::find($id);
         $this->authorize('update', $maintenance);
-        $computers = Computer::all();
+        $computers = $this->getComputers($request);
         $maintenanceTypes = MaintenanceType::all();
 
         return view('maintenance.edit', compact('maintenance', 'computers', 'maintenanceTypes'));

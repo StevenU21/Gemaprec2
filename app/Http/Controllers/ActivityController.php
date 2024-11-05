@@ -51,14 +51,29 @@ class ActivityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
         $this->authorize('create', Activity::class);
         $activity = new Activity();
         $activityTypes = ActivityType::all();
-        $maintenances = Maintenance::all();
+        $maintenances = $this->getMaintenances($request);
 
         return view('activity.create', compact('activity', 'activityTypes', 'maintenances'));
+    }
+
+    private function getMaintenances(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->hasRole('admin')) {
+            return Maintenance::all();
+        } elseif ($user->hasRole('employee')) {
+            return Maintenance::whereHas('computer.client', function ($query) use ($user) {
+                $query->where('created_by', $user->id);
+            })->get();
+        } else {
+            return collect(); // Empty collection for other roles
+        }
     }
 
     /**
@@ -107,13 +122,14 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id): View
+    public function edit($id, Request $request): View
     {
         $activity = Activity::find($id);
         $this->authorize('update', $activity);
-        $users = User::all();
+        $activityTypes = ActivityType::all();
+        $maintenances = $this->getMaintenances($request);
 
-        return view('activity.edit', compact('activity', 'users'));
+        return view('activity.edit', compact('activity', 'activityTypes', 'maintenances'));
     }
 
     /**
