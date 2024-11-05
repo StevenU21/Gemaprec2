@@ -46,22 +46,7 @@ class MaintenanceController extends Controller
 
         return view('maintenance.index', compact('maintenances'));
     }
-
-    public function events()
-    {
-        $this->authorize('viewAny', Maintenance::class);
-        $events = Maintenance::all()->map(function ($maintenance) {
-            return [
-                'title' => $maintenance->code . ' - ' . $maintenance->maintenanceType->name . ' - ' . $maintenance->computer->client->user->name,
-                'start' => $maintenance->start_date,
-                'end' => $maintenance->end_date,
-                'url' => route('maintenances.show', $maintenance->id)
-            ];
-        });
-
-        return response()->json($events);
-    }
-
+    
     /**
      * Show the form for creating a new resource.
      */

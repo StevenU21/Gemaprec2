@@ -48,26 +48,6 @@ class ActivityController extends Controller
         return view('activity.index', compact('activities'));
     }
 
-    public function getEvents()
-    {
-        $activities = Activity::all();
-
-        $events = [];
-
-        foreach ($activities as $activity) {
-            $events[] = [
-                'title' => $activity->description,
-                'start' => $activity->start_date,
-                'end' => $activity->end_date,
-                'maintenance' => $activity->maintenance->description,
-                'url' => route('activities.show', $activity->id),
-                'color' => 'orange',
-            ];
-        }
-
-        return response()->json($events);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
