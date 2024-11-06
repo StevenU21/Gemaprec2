@@ -25,7 +25,7 @@ class MaintenanceFactory extends Factory
         $maintenanceCode = $this->abbreviateName($clientName) . $randomNumber . $timestamp;
 
         // Generar una fecha de inicio única entre 2024 y 2026
-        $startDate = fake()->unique()->dateTimeBetween('2024-01-01', '2025-12-31');
+        $startDate = fake()->unique()->dateTimeBetween('2024-01-01', '2025-05-31');
         // Generar una duración de mantenimiento entre 1 y 15 días
         $duration = rand(1, 15);
         $endDate = (clone $startDate)->modify("+$duration days");

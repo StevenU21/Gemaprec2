@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         $this->call(RolesAndPermissionsSeeder::class);
         User::factory(10)->employee()->create();
-        Client::factory(60)->create();
+        Client::factory(30)->create();
 
         $adminRole = Role::where('name', 'admin')->first();
         $employeeRole = Role::where('name', 'employee')->first();
@@ -63,15 +63,14 @@ class DatabaseSeeder extends Seeder
         PcType::factory(3)->create();
         Ubication::factory(4)->create();
 
-        Computer::factory(100)->create();
-
+        Computer::factory(50)->create();
 
         // Crear mantenimientos
-        $maintenances = Maintenance::factory(100)->create();
+        $maintenances = Maintenance::factory(50)->create();
 
         // Crear actividades para cada mantenimiento
         $maintenances->each(function ($maintenance) {
-            $activityCount = rand(1, 5); // Número aleatorio de actividades por mantenimiento
+            $activityCount = rand(1, 4); // Número aleatorio de actividades por mantenimiento
             Activity::factory($activityCount)->create(['maintenance_id' => $maintenance->id]);
         });
     }

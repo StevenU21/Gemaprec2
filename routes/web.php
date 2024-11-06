@@ -26,7 +26,12 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/catalog-counts', [HomeController::class, 'getCatalogCounts']);
-
+    Route::get('/upcoming-activities', [HomeController::class, 'getUpcomingActivities']);
+    Route::get('/upcoming-maintenances', [HomeController::class, 'getUpcomingMaintenances']);
+    Route::get('/top-employees', [HomeController::class, 'getTopEmployees']);
+    Route::get('/top-clients-computers', [HomeController::class, 'getTopClientsByComputers']);
+    Route::get('/maintenance-counts', [HomeController::class, 'getMaintenanceCountsByStatus']);
+    Route::get('/maintenance-type-counts', [HomeController::class, 'getMaintenanceTypeCounts']);
 
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
