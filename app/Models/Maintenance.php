@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -30,7 +31,7 @@ use App\Traits\VisibleToUser;
  */
 class Maintenance extends Model
 {
-    use LogsActivity, VisibleToUser;
+    use LogsActivity, VisibleToUser, HasFactory;
     protected $perPage = 20;
 
     public function getActivitylogOptions(): LogOptions

@@ -83,7 +83,7 @@ class CalendarController extends Controller
         return [
             'id' => "activity_" . $activity->id,
             'groupId' => "group_" . $maintenance->id,
-            'title' => $activity->maintenance->code . ' Actividad: ' . $activity->description,
+            'title' => ' Actividad: ' . $activity->description,
             'start' => $activity->start_date,
             'end' => $activity->end_date,
             'maintenance' => $maintenance->description,

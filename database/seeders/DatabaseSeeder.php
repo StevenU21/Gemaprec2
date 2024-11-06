@@ -11,6 +11,10 @@ use App\Models\Ubication;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use App\Models\Client;
+use App\Models\Computer;
+use App\Models\Maintenance;
+use App\Models\Activity;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +25,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call(RolesAndPermissionsSeeder::class);
+        User::factory(10)->employee()->create();
+        Client::factory(60)->create();
 
         $adminRole = Role::where('name', 'admin')->first();
         $employeeRole = Role::where('name', 'employee')->first();
@@ -40,14 +46,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('employee@gmail.com'),
         ]);
 
-        $employee2 = User::factory()->create([
-            'name' => 'Employee2 Test',
-            'email' => 'employee2@gmail.com',
-            'password' => bcrypt('employee2@gmail.com'),
-        ]);
-
         $employee->assignRole($employeeRole);
-        $employee2->assignRole($employeeRole);
 
         $admin = User::factory()->create([
             'name' => 'Admin Test',
@@ -62,6 +61,18 @@ class DatabaseSeeder extends Seeder
         MaintenanceType::factory(4)->create();
         PcModel::factory(16)->create();
         PcType::factory(3)->create();
-        Ubication::factory(20)->create();
+        Ubication::factory(4)->create();
+
+        Computer::factory(100)->create();
+
+
+        // Crear mantenimientos
+        $maintenances = Maintenance::factory(100)->create();
+
+        // Crear actividades para cada mantenimiento
+        $maintenances->each(function ($maintenance) {
+            $activityCount = rand(1, 5); // Número aleatorio de actividades por mantenimiento
+            Activity::factory($activityCount)->create(['maintenance_id' => $maintenance->id]);
+        });
     }
 }
