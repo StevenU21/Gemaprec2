@@ -25,6 +25,9 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/catalog-counts', [HomeController::class, 'getCatalogCounts']);
+
+
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
     Route::get('/histories', [HistoryController::class, 'index'])->name('histories.index');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
