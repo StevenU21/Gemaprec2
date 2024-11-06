@@ -23,34 +23,18 @@
 
         @role('admin')
             <div class="container mt-4">
-                <div class="row">
+                <div class="row mb-4">
                     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Espacio para contenido futuro -->
-                            </div>
-                        </div>
+                        <button id="btnPieChart" class="btn btn-primary btn-block">Pie Chart</button>
                     </div>
                     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Espacio para contenido futuro -->
-                            </div>
-                        </div>
+                        <button id="btnBarChart" class="btn btn-secondary btn-block">Bar Chart</button>
                     </div>
                     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Espacio para contenido futuro -->
-                            </div>
-                        </div>
+                        <button id="btnColumnChart" class="btn btn-success btn-block">Column Chart</button>
                     </div>
                     <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- Espacio para contenido futuro -->
-                            </div>
-                        </div>
+                        <button id="btnGanttChart" class="btn btn-danger btn-block">Gantt Chart</button>
                     </div>
                 </div>
 
@@ -199,13 +183,10 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Verificar los datos recibidos
                     console.log('Datos recibidos:', data);
 
-                    // Definir los colores para cada estado
-                    const colors = ['#FF0000', '#FFFF00', '#008000']; // Rojo, Amarillo, Verde
+                    const colors = ['#FF0000', '#FFFF00', '#008000'];
 
-                    // Configurar y renderizar el gráfico de pastel
                     Highcharts.chart('maintenanceStatusChart', {
                         chart: {
                             type: 'pie'
