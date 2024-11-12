@@ -34,61 +34,76 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="clients-table" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
                                         <th>Nombre</th>
                                         <th>Correo</th>
                                         <th>Teléfono</th>
                                         <th>Dirección</th>
                                         <th>Ciudad</th>
-                                        {{-- <th>Estado</th> --}}
-
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($clients as $client)
-                                        <tr>
-                                            <td>{{ $client->id }}</td>
-                                            <td>{{ $client->user->name }}</td>
-                                            <td>{{ $client->user->email }}</td>
-                                            <td>{{ $client->phone }}</td>
-                                            <td>{{ $client->address }}</td>
-                                            <td>{{ $client->city }}</td>
-                                            {{-- <td>{{ $client->status }}</td> --}}
-
-                                            <td>
-                                                <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary "
-                                                        href="{{ route('clients.show', $client->id) }}"><i
-                                                            class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-
-                                                    @can('update clients')
-                                                        <a class="btn btn-sm btn-success"
-                                                            href="{{ route('clients.edit', $client->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-                                                    @endcan
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('delete clients')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                                    @endcan
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
-                            {!! $clients->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <!-- Incluir los archivos de DataTables para Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#clients-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('clients.index') }}",
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'user.name',
+                        name: 'user.name'
+                    },
+                    {
+                        data: 'user.email',
+                        name: 'user.email'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
+                        data: 'address',
+                        name: 'address'
+                    },
+                    {
+                        data: 'city',
+                        name: 'city'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                responsive: true,
+                autoWidth: false,
+            });
+        });
+    </script>
 @endsection

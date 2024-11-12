@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\NotificationService;
 use App\Notifications\DeletedClientNotification;
 use App\Notifications\UpdatedClientNotification;
+use Yajra\DataTables\Facades\DataTables;
 
 class ClientController extends Controller
 {
@@ -30,17 +31,30 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Client::class);
 
-        $user = Auth::user();
+        if ($request->ajax()) {
+            $data = Client::visibleToUser();
+            return DataTables::of($data)
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('clients.show', $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-eye"></i> Mostrar</a>';
+                    $btn .= ' <a href="' . route('clients.edit', $row->id) . '" class="btn btn-sm btn-success"><i class="fa fa-fw fa-edit"></i> Editar</a>';
+                    $btn .= ' <form action="' . route('clients.destroy', $row->id) . '" method="POST" style="display:inline;">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Estas seguro que deseas eliminar?\')"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                              </form>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
 
-        $clients = Client::visibleToUser()->paginate(10);
-
-        return view('client.index', compact('clients'));
+        return view('client.index');
     }
-
     /**
      * Show the form for creating a new resource.
      */
