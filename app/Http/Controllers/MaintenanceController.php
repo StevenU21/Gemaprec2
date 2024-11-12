@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\UpdatedMaintenanceNotification;
 use App\Notifications\DeletedMaintenanceNotification;
 use App\Services\ActivityService;
+use Yajra\DataTables\Facades\DataTables;
 
 class MaintenanceController extends Controller
 {
@@ -31,20 +32,35 @@ class MaintenanceController extends Controller
         $this->notificationService = $notificationService;
         $this->activityService = $activityService;
     }
-
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Maintenance::class);
 
         $maintenancesQuery = $this->activityService->getActivitiesQuery($request, Maintenance::class);
 
-        if ($maintenancesQuery instanceof \Illuminate\Support\Collection) {
-            $maintenances = $maintenancesQuery;
-        } else {
-            $maintenances = $maintenancesQuery->paginate(5);
+        if ($request->ajax()) {
+            return DataTables::of($maintenancesQuery)
+                ->addColumn('computer_name', function ($maintenance) {
+                    return $maintenance->computer->name;
+                })
+                ->addColumn('maintenance_type_name', function ($maintenance) {
+                    return $maintenance->maintenanceType->name;
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('maintenances.show', $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-eye"></i> Mostrar</a>';
+                    $btn .= ' <a href="' . route('maintenances.edit', $row->id) . '" class="btn btn-sm btn-success"><i class="fa fa-fw fa-edit"></i> Editar</a>';
+                    $btn .= ' <form action="' . route('maintenances.destroy', $row->id) . '" method="POST" style="display:inline;">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Estas seguro que deseas eliminar?\')"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                              </form>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
-        return view('maintenance.index', compact('maintenances'));
+        return view('maintenance.index');
     }
 
     /**

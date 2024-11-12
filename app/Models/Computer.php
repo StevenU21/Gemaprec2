@@ -71,17 +71,12 @@ class Computer extends Model
         return $this->belongsTo(\App\Models\Brand::class, 'brand_id', 'id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    // En el modelo Computer.php
     public function pcModel()
     {
         return $this->belongsTo(\App\Models\PcModel::class, 'pc_model_id', 'id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function pcType()
     {
         return $this->belongsTo(\App\Models\PcType::class, 'pc_type_id', 'id');

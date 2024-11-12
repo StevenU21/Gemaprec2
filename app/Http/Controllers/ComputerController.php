@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Notifications\DeletedComputerNotification;
 use App\Notifications\UpdatedComputerNotification;
 use App\Services\ActivityService;
+use Yajra\DataTables\Facades\DataTables;
 
 class ComputerController extends Controller
 {
@@ -34,19 +35,29 @@ class ComputerController extends Controller
         $this->activityService = $activityService;
     }
 
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Computer::class);
 
         $computersQuery = $this->activityService->getActivitiesQuery($request, Computer::class);
 
-        if ($computersQuery instanceof \Illuminate\Support\Collection) {
-            $computers = $computersQuery;
-        } else {
-            $computers = $computersQuery->paginate(5);
+        if ($request->ajax()) {
+            return DataTables::of($computersQuery)
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('computers.show', $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-eye"></i> Mostrar</a>';
+                    $btn .= ' <a href="' . route('computers.edit', $row->id) . '" class="btn btn-sm btn-success"><i class="fa fa-fw fa-edit"></i> Editar</a>';
+                    $btn .= ' <form action="' . route('computers.destroy', $row->id) . '" method="POST" style="display:inline;">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Estas seguro que deseas eliminar?\')"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                              </form>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
-        return view('computer.index', compact('computers'));
+        return view('computer.index');
     }
 
     /**

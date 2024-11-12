@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    Activities
+    Actividades
 @endsection
 
 @section('content')
@@ -11,19 +11,17 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-
                             <span id="card_title">
                                 {{ __('Actividades') }}
                             </span>
-
-                            <div class="float-right">
-                                @can('create activities')
+                            @can('create activities')
+                                <div class="float-right">
                                     <a href="{{ route('activities.create') }}" class="btn btn-primary btn-sm float-right"
                                         data-placement="left">
                                         {{ __('Crear Nuevo') }}
                                     </a>
-                                @endcan
-                            </div>
+                                </div>
+                            @endcan
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -34,68 +32,58 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="activities-table" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-
-                                        <th>Description</th>
+                                        <th>ID</th>
+                                        <th>Descripción</th>
                                         <th>Fecha de Inicio</th>
-                                        <th>Fecha de Finalizacion</th>
+                                        <th>Fecha de Fin</th>
                                         <th>Tipo de Actividad</th>
-                                        <th>Mantenimiento</th>
-
+                                        <th>Código de Mantenimiento</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-
-                                @php
-                                    use Carbon\Carbon;
-                                @endphp
-                                <tbody>
-                                    @foreach ($activities as $activity)
-                                        <tr>
-
-                                            <td>{{ $activity->id }}</td>
-                                            <td>{{ $activity->description }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($activity->start_date)->format('d-m-Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($activity->end_date)->format('d-m-Y') }}</td>
-                                            <td>{{ $activity->activityType->name }}</td>
-                                            <td>{{ $activity->maintenance->code }}</td>
-
-                                            <td>
-                                                <form action="{{ route('activities.destroy', $activity->id) }}"
-                                                    method="POST">
-                                                    @can('read activities')
-                                                        <a class="btn btn-sm btn-primary "
-                                                            href="{{ route('activities.show', $activity->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    @endcan
-
-                                                    @can('update activities')
-                                                        <a class="btn btn-sm btn-success"
-                                                            href="{{ route('activities.edit', $activity->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-                                                    @endcan
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    @can('delete activities')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Estas seguro que quieres borrar?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                                    @endcan
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                {!! $activities->links() !!}
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <!-- Incluir los archivos de DataTables para Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#activities-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('activities.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'description', name: 'description' },
+                    { data: 'start_date', name: 'start_date' },
+                    { data: 'end_date', name: 'end_date' },
+                    { data: 'activity_type_name', name: 'activity_type_name' },
+                    { data: 'maintenance_code', name: 'maintenance_code' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                }
+            });
+        });
+    </script>
 @endsection

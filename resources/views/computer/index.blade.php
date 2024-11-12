@@ -17,10 +17,12 @@
                             </span>
 
                             @can('create computers')
-                                <a href="{{ route('computers.create') }}" class="btn btn-primary btn-sm float-right"
-                                    data-placement="left">
-                                    {{ __('Crear Nuevo') }}
-                                </a>
+                                <div class="float-right">
+                                    <a href="{{ route('computers.create') }}" class="btn btn-primary btn-sm float-right"
+                                        data-placement="left">
+                                        {{ __('Crear Nuevo') }}
+                                    </a>
+                                </div>
                             @endcan
                         </div>
                     </div>
@@ -32,16 +34,15 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="computers-table" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-                                        <th>Name</th>
+                                        <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th>Número Serial</th>
-                                        <th>Dirección Mac</th>
-                                        <th>Fecha de Adquisión</th>
+                                        <th>Número de Serie</th>
+                                        <th>MAC Address</th>
+                                        <th>Fecha de Adquisición</th>
                                         <th>Estado</th>
                                         <th>Marca</th>
                                         <th>Modelo</th>
@@ -50,52 +51,48 @@
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($computers as $computer)
-                                        <tr>
-                                            <td>{{ $computer->id }}</td>
-                                            <td>{{ $computer->name }}</td>
-                                            <td>{{ $computer->description }}</td>
-                                            <td>{{ $computer->serial_number }}</td>
-                                            <td>{{ $computer->mac_address }}</td>
-                                            <td>{{ $computer->adquisition_date }}</td>
-                                            <td>{{ $computer->status }}</td>
-                                            <td>{{ $computer->brand->name }}</td>
-                                            <td>{{ $computer->pcModel->name }}</td>
-                                            <td>{{ $computer->pcType->name }}</td>
-                                            <td>{{ $computer->client->user->name }}</td>
-
-                                            <td>
-                                                <form action="{{ route('computers.destroy', $computer->id) }}"
-                                                    method="POST">
-                                                    @can('read computers')
-                                                        <a class="btn btn-sm btn-primary "
-                                                            href="{{ route('computers.show', $computer->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    @endcan
-                                                    @can('update computers')
-                                                        <a class="btn btn-sm btn-success"
-                                                            href="{{ route('computers.edit', $computer->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-                                                    @endcan
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('delete computers')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                                    @endcan
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
-                            {!! $computers->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <!-- Incluir los archivos de DataTables para Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#computers-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('computers.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'name', name: 'name' },
+                    { data: 'description', name: 'description' },
+                    { data: 'serial_number', name: 'serial_number' },
+                    { data: 'mac_address', name: 'mac_address' },
+                    { data: 'adquisition_date', name: 'adquisition_date' },
+                    { data: 'status', name: 'status' },
+                    { data: 'brand.name', name: 'brand.name' },
+                    { data: 'pc_model.name', name: 'pc_model.name' },
+                    { data: 'pc_type.name', name: 'pc_type.name' },
+                    { data: 'client.user.name', name: 'client.user.name' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+                responsive: true,
+                autoWidth: false,
+            });
+        });
+    </script>
+
 @endsection

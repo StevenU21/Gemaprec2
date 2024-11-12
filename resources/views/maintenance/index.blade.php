@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    Maintenances
+    Mantenimientos
 @endsection
 
 @section('content')
@@ -11,11 +11,9 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-
                             <span id="card_title">
                                 {{ __('Mantenimientos') }}
                             </span>
-
                             @can('create maintenances')
                                 <div class="float-right">
                                     <a href="{{ route('maintenances.create') }}" class="btn btn-primary btn-sm float-right"
@@ -34,71 +32,64 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="maintenances-table" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Codigo</th>
+                                        <th>ID</th>
+                                        <th>Código</th>
                                         <th>Descripción</th>
                                         <th>Fecha de Inicio</th>
-                                        <th>Fecha de Finalización</th>
+                                        <th>Fecha de Fin</th>
                                         <th>Observaciones</th>
                                         <th>Estado</th>
-                                        <th>Computadora</th>
+                                        <th>Nombre del Computador</th>
                                         <th>Tipo de Mantenimiento</th>
-
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-
-                                @php
-                                    use Carbon\Carbon;
-                                @endphp
-                                <tbody>
-                                    @foreach ($maintenances as $maintenance)
-                                        <tr>
-                                            <td>{{ $maintenance->id }}</td>
-                                            <td>{{ $maintenance->code }}</td>
-                                            <td>{{ $maintenance->description }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($maintenance->start_date)->format('d-m-Y') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($maintenance->end_date)->format('d-m-Y') }}</td>
-                                            <td>{{ $maintenance->observations }}</td>
-                                            <td>{{ $maintenance->status }}</td>
-                                            <td>{{ $maintenance->computer->name }}</td>
-                                            <td>{{ $maintenance->maintenanceType->name }}</td>
-
-                                            <td>
-                                                <form action="{{ route('maintenances.destroy', $maintenance->id) }}"
-                                                    method="POST">
-                                                    @can('read maintenances')
-                                                        <a class="btn btn-sm btn-primary "
-                                                            href="{{ route('maintenances.show', $maintenance->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    @endcan
-
-                                                    @can('update maintenances')
-                                                        <a class="btn btn-sm btn-success"
-                                                            href="{{ route('maintenances.edit', $maintenance->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-                                                    @endcan
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    @can('delete maintenances')
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                                    @endcan
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
                             </table>
-                            {!! $maintenances->links() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <!-- Incluir los archivos de DataTables para Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#maintenances-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('maintenances.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'code', name: 'code' },
+                    { data: 'description', name: 'description' },
+                    { data: 'start_date', name: 'start_date' },
+                    { data: 'end_date', name: 'end_date' },
+                    { data: 'observations', name: 'observations' },
+                    { data: 'status', name: 'status' },
+                    { data: 'computer_name', name: 'computer_name' },
+                    { data: 'maintenance_type_name', name: 'maintenance_type_name' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+                responsive: true,
+                autoWidth: false,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                }
+            });
+        });
+    </script>
 @endsection

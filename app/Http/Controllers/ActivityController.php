@@ -19,6 +19,7 @@ use App\Notifications\CreatedActivityNotification;
 use App\Notifications\DeletedActivityNotification;
 use App\Notifications\UpdatedActivityNotification;
 use App\Services\ActivityService;
+use Yajra\DataTables\Facades\DataTables;
 
 class ActivityController extends Controller
 {
@@ -33,19 +34,35 @@ class ActivityController extends Controller
         $this->activityService = $activityService;
     }
 
-    public function index(Request $request): View
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Activity::class);
 
         $activitiesQuery = $this->activityService->getActivitiesQuery($request, Activity::class);
 
-        if ($activitiesQuery instanceof \Illuminate\Support\Collection) {
-            $activities = $activitiesQuery;
-        } else {
-            $activities = $activitiesQuery->paginate(5);
+        if ($request->ajax()) {
+            return DataTables::of($activitiesQuery)
+                ->addColumn('activity_type_name', function ($activity) {
+                    return $activity->activityType->name;
+                })
+                ->addColumn('maintenance_code', function ($activity) {
+                    return $activity->maintenance->code;
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('activities.show', $row->id) . '" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-eye"></i> Mostrar</a>';
+                    $btn .= ' <a href="' . route('activities.edit', $row->id) . '" class="btn btn-sm btn-success"><i class="fa fa-fw fa-edit"></i> Editar</a>';
+                    $btn .= ' <form action="' . route('activities.destroy', $row->id) . '" method="POST" style="display:inline;">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Estas seguro que deseas eliminar?\')"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                              </form>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
-        return view('activity.index', compact('activities'));
+        return view('activity.index');
     }
 
     /**
