@@ -13,14 +13,14 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Activities') }}
+                                {{ __('Actividades') }}
                             </span>
 
                             <div class="float-right">
                                 @can('create activities')
                                     <a href="{{ route('activities.create') }}" class="btn btn-primary btn-sm float-right"
                                         data-placement="left">
-                                        {{ __('Create New') }}
+                                        {{ __('Crear Nuevo') }}
                                     </a>
                                 @endcan
                             </div>
@@ -69,21 +69,21 @@
                                                     @can('read activities')
                                                         <a class="btn btn-sm btn-primary "
                                                             href="{{ route('activities.show', $activity->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                                class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
                                                     @endcan
 
                                                     @can('update activities')
                                                         <a class="btn btn-sm btn-success"
                                                             href="{{ route('activities.edit', $activity->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @endcan
                                                     @csrf
                                                     @method('DELETE')
 
                                                     @can('delete activities')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                            onclick="event.preventDefault(); confirm('Estas seguro que quieres borrar?') ? this.closest('form').submit() : false;"><i
+                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                     @endcan
                                                 </form>
                                             </td>

@@ -66,12 +66,12 @@
                                                     @role('admin')
                                                         <a class="btn btn-sm btn-success"
                                                             href="{{ route('brands.edit', $brand->id) }}">
-                                                            <i class="fa fa-fw fa-edit"></i> {{ __('Edita') }}
+                                                            <i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}
                                                         </a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;">
+                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;">
                                                             <i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}
                                                         </button>
                                                     @endrole

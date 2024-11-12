@@ -11,10 +11,11 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Activity Type</span>
+                        <span class="card-title">{{ __('Editar') }} Tipo de Actividad</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('activity-types.update', $activityType->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('activity-types.update', $activityType->id) }}" role="form"
+                            enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 

@@ -11,11 +11,11 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Maintenance</span>
+                        <span class="card-title">{{ __('Editar') }} Maintenimiento</span>
 
                         <div class="float-right">
                             <a href="{{ route('maintenances.index') }}" class="btn btn-primary btn-sm">
-                                {{ __('Back') }}
+                                {{ __('Regresar') }}
                             </a>
                         </div>
                     </div>

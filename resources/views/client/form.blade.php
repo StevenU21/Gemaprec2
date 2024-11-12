@@ -27,11 +27,6 @@
             <input type="text" name="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city', $client?->city) }}" id="city" placeholder="Ciudad">
             {!! $errors->first('city', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        {{-- <div class="form-group mb-2 mb20">
-            <label for="state" class="form-label">{{ __('Estado') }}</label>
-            <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state', $client?->state) }}" id="state" placeholder="Estado">
-            {!! $errors->first('state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div> --}}
     </div>
     <div class="col-md-12 mt20 mt-2">
         <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>

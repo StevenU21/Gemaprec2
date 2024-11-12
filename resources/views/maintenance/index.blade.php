@@ -13,14 +13,14 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Maintenances') }}
+                                {{ __('Mantenimientos') }}
                             </span>
 
                             @can('create maintenances')
                                 <div class="float-right">
                                     <a href="{{ route('maintenances.create') }}" class="btn btn-primary btn-sm float-right"
                                         data-placement="left">
-                                        {{ __('Create New') }}
+                                        {{ __('Crear Nuevo') }}
                                     </a>
                                 </div>
                             @endcan
@@ -38,16 +38,16 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        <th>Code</th>
-                                        <th>Description</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Observations</th>
-                                        <th>Status</th>
-                                        <th>Computer</th>
-                                        <th>Maintenance Type</th>
+                                        <th>Codigo</th>
+                                        <th>Descripción</th>
+                                        <th>Fecha de Inicio</th>
+                                        <th>Fecha de Finalización</th>
+                                        <th>Observaciones</th>
+                                        <th>Estado</th>
+                                        <th>Computadora</th>
+                                        <th>Tipo de Mantenimiento</th>
 
-                                        <th></th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
 
@@ -73,20 +73,20 @@
                                                     @can('read maintenances')
                                                         <a class="btn btn-sm btn-primary "
                                                             href="{{ route('maintenances.show', $maintenance->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                                class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
                                                     @endcan
 
                                                     @can('update maintenances')
                                                         <a class="btn btn-sm btn-success"
                                                             href="{{ route('maintenances.edit', $maintenance->id) }}"><i
-                                                                class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                                class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @endcan
                                                     @csrf
                                                     @method('DELETE')
                                                     @can('delete maintenances')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                                class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;"><i
+                                                                class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                     @endcan
                                                 </form>
                                             </td>

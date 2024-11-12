@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    {{ $brand->name ?? __('Show') . " " . __('Brand') }}
+    {{ $brand->name ?? __('Show') . ' ' . __('Brand') }}
 @endsection
 
 @section('content')
@@ -11,23 +11,23 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Brand</span>
+                            <span class="card-title">{{ __('Mostrar') }} Marcas</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('brands.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('brands.index') }}"> {{ __('Regresar') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
 
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Name:</strong>
-                                    {{ $brand->name }}
-                                </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Description:</strong>
-                                    {{ $brand->description }}
-                                </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nombre:</strong>
+                            {{ $brand->name }}
+                        </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Descripción:</strong>
+                            {{ $brand->description }}
+                        </div>
 
                     </div>
                 </div>

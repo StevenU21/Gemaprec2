@@ -11,21 +11,21 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Report</span>
+                            <span class="card-title">{{ __('Mostrar') }} Reportar</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('reports.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('reports.index') }}"> {{ __('Regresar') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
 
                         <div class="form-group mb-2 mb20">
-                            <strong>Name:</strong>
+                            <strong>Nombre:</strong>
                             {{ $report->code }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Description:</strong>
+                            <strong>Descripción:</strong>
                             <ul>
                                 @foreach (explode("\n", $report->description) as $line)
                                     <li>{{ $line }}</li>
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="form-group mb-2 mb20">
-                            <strong>Status:</strong>
+                            <strong>Estado:</strong>
                             {{ $report->maintenance->status }}
                         </div>
                         <div class="form-group mb-2 mb20">

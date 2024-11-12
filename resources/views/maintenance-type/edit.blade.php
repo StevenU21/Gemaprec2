@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Maintenance Type</span>
+                        <span class="card-title">{{ __('Editar') }} Tipos de Mantenimiento</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('maintenance-types.update', $maintenanceType->id) }}"  role="form" enctype="multipart/form-data">

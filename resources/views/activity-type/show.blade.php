@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    {{ $activityType->name ?? __('Show') . " " . __('Activity Type') }}
+    {{ $activityType->name ?? __('Show') . ' ' . __('Activity Type') }}
 @endsection
 
 @section('content')
@@ -11,19 +11,20 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Activity Type</span>
+                            <span class="card-title">{{ __('Mostrar') }} Tipo de Actividad</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('activity-types.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('activity-types.index') }}">
+                                {{ __('Regresar') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
 
-                                <div class="form-group mb-2 mb20">
-                                    <strong>Name:</strong>
-                                    {{ $activityType->name }}
-                                </div>
+                        <div class="form-group mb-2 mb20">
+                            <strong>Nombre:</strong>
+                            {{ $activityType->name }}
+                        </div>
 
                     </div>
                 </div>

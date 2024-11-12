@@ -12,11 +12,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Reports') }}
+                                {{ __('Reportes') }}
                             </span>
 
                             <a href="{{ route('reports.exportAll') }}" class="btn btn-danger"> <i
-                                    class="fas fa-file-excel"></i> Export All to Excel</a>
+                                    class="fas fa-file-excel"></i> Exportar todo a Excel</a>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -32,10 +32,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Code</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
-                                            <th>Client</th>
+                                            <th>Codigo</th>
+                                            <th>Descripción</th>
+                                            <th>Estado</th>
+                                            <th>Cliente</th>
                                             <th>Mantenimiento</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -58,16 +58,16 @@
                                                 <td>
                                                     <a class="btn btn-sm btn-primary"
                                                         href="{{ route('reports.show', $report->id) }}">
-                                                        <i class="fa fa-fw fa-eye"></i> {{ __('Show') }}
+                                                        <i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}
                                                     </a>
                                                     <a href="{{ route('reports.export', $report->id) }}"
                                                         class="btn btn-sm btn-success">
-                                                        <i class="fas fa-file-excel"></i> Export to Excel
+                                                        <i class="fas fa-file-excel"></i> Exportar a Excel
                                                     </a>
 
                                                     <a href="{{ route('exports.reportPDF', $report->id) }}"
                                                         class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-file-pdf"></i> Export to PDF
+                                                        <i class="fas fa-file-pdf"></i> Exportar a PDF
                                                     </a>
                                                 </td>
                                             </tr>

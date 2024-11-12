@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Pc Model</span>
+                        <span class="card-title">{{ __('Crear') }} Modelos de PC</span>
 
                         <div class="float-right">
                             <a href="{{ route('pc-models.index') }}" class="btn btn-primary btn-sm float-right"

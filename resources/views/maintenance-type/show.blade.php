@@ -11,22 +11,22 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Maintenance Type</span>
+                            <span class="card-title">{{ __('Mostrar') }} Tipos de Mantenimiento</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary btn-sm" href="{{ route('maintenance-types.index') }}">
-                                {{ __('Back') }}</a>
+                                {{ __('Regresar') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
 
                         <div class="form-group mb-2 mb20">
-                            <strong>Name:</strong>
+                            <strong>Nombe:</strong>
                             {{ $maintenanceType->name }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Description:</strong>
+                            <strong>Descripción:</strong>
                             {{ $maintenanceType->description }}
                         </div>
 

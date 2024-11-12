@@ -75,7 +75,7 @@
                                                     @method('DELETE')
                                                     @can('delete clients')
                                                         <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
+                                                            onclick="event.preventDefault(); confirm('Estas seguro que deseas eliminar?') ? this.closest('form').submit() : false;"><i
                                                                 class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                     @endcan
                                                 </form>

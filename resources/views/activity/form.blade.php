@@ -2,23 +2,23 @@
     <div class="col-md-12">
 
         <div class="form-group mb-2 mb20">
-            <label for="description" class="form-label">{{ __('Description') }}</label>
+            <label for="description" class="form-label">{{ __('Descripción') }}</label>
             <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
-                value="{{ old('description', $activity?->description) }}" id="description" placeholder="Description">
+                value="{{ old('description', $activity?->description) }}" id="description" placeholder="Descripción">
             {!! $errors->first('description', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="start_date" class="form-label">{{ __('Start Date') }}</label>
+            <label for="start_date" class="form-label">{{ __('Fecha de Inicio') }}</label>
             <input type="date" name="start_date" class="form-control @error('start_date') is-invalid @enderror"
-                value="{{ old('start_date', $activity?->start_date) }}" id="start_date" placeholder="Start Date">
+                value="{{ old('start_date', $activity?->start_date) }}" id="start_date" placeholder="Fecha de Inicio">
             {!! $errors->first('start_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="end_date" class="form-label">{{ __('End Date') }}</label>
+            <label for="end_date" class="form-label">{{ __('Fecha de Fin') }}</label>
             <input type="date" name="end_date" class="form-control @error('end_date') is-invalid @enderror"
-                value="{{ old('end_date', $activity?->end_date) }}" id="end_date" placeholder="End Date">
+                value="{{ old('end_date', $activity?->end_date) }}" id="end_date" placeholder="Fecha de Fin">
             {!! $errors->first('end_date', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="maintenance_id" class="form-label">{{ __('Matenimiento') }}</label>
+            <label for="maintenance_id" class="form-label">{{ __('Mantenimiento') }}</label>
             <select name="maintenance_id" class="form-control @error('maintenance_id') is-invalid @enderror"
                 id="maintenance_id">
                 <option value="">{{ __('Seleccionar el Mantenimiento') }}</option>
@@ -60,6 +60,6 @@
 
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
     </div>
 </div>

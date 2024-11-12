@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    {{ $maintenance->name ?? __('Show') . ' ' . __('Maintenance') }}
+    {{ $maintenance->name ?? __('Mostrar') . ' ' . __('Mantenimiento') }}
 @endsection
 
 @section('content')
@@ -11,46 +11,46 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Maintenance</span>
+                            <span class="card-title">{{ __('Mostrar') }} Mantenimiento</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary btn-sm" href="{{ route('maintenances.index') }}">
-                                {{ __('Back') }}</a>
+                                {{ __('Volver') }}</a>
                         </div>
                     </div>
 
                     <div class="card-body bg-white">
 
                         <div class="form-group mb-2 mb20">
-                            <strong>Description:</strong>
+                            <strong>Descripción:</strong>
                             {{ $maintenance->description }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Start Date:</strong>
+                            <strong>Fecha de Inicio:</strong>
                             {{ $maintenance->start_date }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>End Date:</strong>
+                            <strong>Fecha de Finalización:</strong>
                             {{ $maintenance->end_date }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Observations:</strong>
+                            <strong>Observaciones:</strong>
                             {{ $maintenance->observations }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Status:</strong>
+                            <strong>Estado:</strong>
                             {{ $maintenance->status }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Computer Id:</strong>
+                            <strong>ID de Computadora:</strong>
                             {{ $maintenance->computer_id }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>User Id:</strong>
+                            <strong>ID de Usuario:</strong>
                             {{ $maintenance->user_id }}
                         </div>
                         <div class="form-group mb-2 mb20">
-                            <strong>Maintenance Type Id:</strong>
+                            <strong>ID de Tipo de Mantenimiento:</strong>
                             {{ $maintenance->maintenance_type_id }}
                         </div>
 

@@ -25,16 +25,16 @@
             <div class="container mt-4">
                 <div class="row mb-4">
                     <div class="col-md-3">
-                        <button id="btnPieChart" class="btn btn-primary btn-block">Pie Chart</button>
+                        <button id="btnPieChart" class="btn btn-primary btn-block">Gráfico de Pastel</button>
                     </div>
                     <div class="col-md-3">
-                        <button id="btnBarChart" class="btn btn-secondary btn-block">Bar Chart</button>
+                        <button id="btnBarChart" class="btn btn-secondary btn-block">Gráfico de Barras</button>
                     </div>
                     <div class="col-md-3">
-                        <button id="btnColumnChart" class="btn btn-success btn-block">Column Chart</button>
+                        <button id="btnColumnChart" class="btn btn-success btn-block">Gráfico de Columnas</button>
                     </div>
                     <div class="col-md-3">
-                        <button id="btnGanttChart" class="btn btn-danger btn-block">Gantt Chart</button>
+                        <button id="btnGanttChart" class="btn btn-danger btn-block">Gráfico de Gantt</button>
                     </div>
                 </div>
 
@@ -216,15 +216,15 @@
                             name: 'Mantenimientos',
                             colorByPoint: true,
                             data: [{
-                                name: 'Pending',
+                                name: 'Pendiente',
                                 y: data.pending,
                                 color: colors[0] // Rojo
                             }, {
-                                name: 'In Progress',
+                                name: 'En Progreso',
                                 y: data.in_progress,
                                 color: colors[1] // Amarillo
                             }, {
-                                name: 'Completed',
+                                name: 'Completado',
                                 y: data.completed,
                                 color: colors[2] // Verde
                             }]

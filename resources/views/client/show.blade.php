@@ -21,30 +21,25 @@
                     <div class="card-body bg-white">
 
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Name:</strong>
+                                    <strong>Nombre:</strong>
                                     {{ $client->name }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Email:</strong>
+                                    <strong>Correo:</strong>
                                     {{ $client->email }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Phone:</strong>
+                                    <strong>Telefono:</strong>
                                     {{ $client->phone }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Address:</strong>
+                                    <strong>Dirección:</strong>
                                     {{ $client->address }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>City:</strong>
+                                    <strong>Ciudad:</strong>
                                     {{ $client->city }}
                                 </div>
-                                <div class="form-group mb-2 mb20">
-                                    <strong>State:</strong>
-                                    {{ $client->state }}
-                                </div>
-
                     </div>
                 </div>
             </div>
