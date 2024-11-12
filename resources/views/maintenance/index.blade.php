@@ -57,15 +57,6 @@
 @endsection
 
 @section('js')
-    <!-- Incluir los archivos de DataTables para Bootstrap 5 -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap5.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap5.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('#maintenances-table').DataTable({
@@ -85,10 +76,7 @@
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
                 responsive: true,
-                autoWidth: false,
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
-                }
+                autoWidth: false
             });
         });
     </script>

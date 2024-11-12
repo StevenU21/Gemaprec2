@@ -1,8 +1,21 @@
 import './bootstrap';
+// Importar jQuery
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+// Importar estilos de DataTables y Bootstrap 5
+import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css';
+
+// Importar scripts de DataTables y Bootstrap 5
+import 'datatables.net';
+import 'datatables.net-bs5';
+import 'datatables.net-responsive';
+import 'datatables.net-responsive-bs5';
 
 document.addEventListener('DOMContentLoaded', function () {
     let calendarEl = document.getElementById('calendar');
