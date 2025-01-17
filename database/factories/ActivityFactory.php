@@ -23,7 +23,6 @@ class ActivityFactory extends Factory
         $duration = rand(1, 3);
         $endDate = (clone $startDate)->modify("+$duration days");
 
-        // Asegurarse de que la fecha de finalización no exceda la fecha de finalización del mantenimiento
         if ($endDate > $maintenance->end_date) {
             $endDate = $maintenance->end_date;
         }
